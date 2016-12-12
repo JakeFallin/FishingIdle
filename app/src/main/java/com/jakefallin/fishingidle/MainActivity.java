@@ -15,15 +15,23 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.jakefallin.fishingidle.upgrades.Upgrade;
 import com.jakefallin.fishingidle.upgrades.UpgradesFragment;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
     @BindView(R.id.nvView)
     NavigationView navigationView;
 
@@ -49,14 +57,15 @@ public class MainActivity extends AppCompatActivity {
 
         setupDrawerContent(navigationView);
 
-        SharedPreferences prefs = this.getSharedPreferences("com.jakefallin.fishingidle", Context.MODE_PRIVATE);
+        dataSetup();
+
 
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
         // and will not render the hamburger icon without it.
-        return new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -105,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass;
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.fishingDrawer:
                 fragmentClass = FishingFragment.class;
                 break;
@@ -139,4 +148,48 @@ public class MainActivity extends AppCompatActivity {
         // Close the navigation drawer
         drawerLayout.closeDrawers();
     }
+
+
+    public void dataSetup() {
+
+        SharedPreferences preferences = this.getSharedPreferences("fishing", Context.MODE_PRIVATE);
+        SharedPreferences.Editor preferencesEditor = preferences.edit();
+        Gson gson = new Gson();
+        boolean hasRun = preferences.getBoolean("firstTime", false);
+
+
+        if (!hasRun) {
+
+            double money = 0.00;
+            putDouble(preferencesEditor, "money", money);
+
+            ArrayList<Upgrade> rodUpgrades = new ArrayList<>();
+
+            //reel
+            rodUpgrades.add(new Upgrade("Reel", 10.0, Upgrade.Category.reel, false, 0));
+            rodUpgrades.add(new Upgrade("Line", 10.0, Upgrade.Category.reel, false, 0));
+            rodUpgrades.add(new Upgrade("Shaft", 10.0, Upgrade.Category.line, false, 0));
+
+            ArrayList<Integer> rodUpgradeLevels = new ArrayList<>();
+
+            rodUpgradeLevels.add(0);
+            rodUpgradeLevels.add(0);
+            rodUpgradeLevels.add(0);
+
+            String json = gson.toJson(rodUpgrades);
+            preferencesEditor.putString("Rod", json);
+            json = gson.toJson(rodUpgradeLevels);
+            preferencesEditor.putString("UpgradeLevels", json);
+            preferencesEditor.apply();
+        }
+    }
+
+    SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
+        return edit.putLong(key, Double.doubleToRawLongBits(value));
+    }
+
+    double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
+        return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
+    }
+
 }

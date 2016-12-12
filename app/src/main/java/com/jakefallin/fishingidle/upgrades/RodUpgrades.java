@@ -209,25 +209,35 @@ public class RodUpgrades extends ListFragment {
                 @Override
                 public void onClick(View view) {
 
-                    double money = getDouble(preferences, "money", 1.0);
-                    money = Math.round(money * 100.0) / 100.0;
+                    int pos = (Integer) view.getTag();
+                    SharedPreferences preferences = getContext().getSharedPreferences("fishing", Context.MODE_PRIVATE);
+                    Gson gson = new Gson();
+                    double money = getDouble(preferences, "money", 0.00);
+                    Type upgradesT = new TypeToken<ArrayList<Upgrade>>(){}.getType();
+                    Type levelsT = new TypeToken<ArrayList<Upgrade>>(){}.getType();
 
-                    if(money >= viewHolder.up.getCost()) {
-                        money -= viewHolder.up.getCost();
+                    ArrayList<Upgrade> upgrades = gson.fromJson("Rod", upgradesT);
+                    ArrayList<Integer> levels = gson.fromJson("UpgradeLevels", levelsT);
+
+                    if(money >= upgrades.get(pos).getCost()) {
+                        money -= upgrades.get(pos).getCost();
+                        money = Math.round(money * 100.0) / 100.0;
                         putDouble(preferencesEditor, "money", money);
-                        tvMoney.setText("$" + money);
-                        int level = preferences.getInt("level", 0);
-                        viewHolder.upgradeButton.setText("Level " + level);
+                        tvMoney.setText("$ " + money);
+                        int temp = levels.get(pos) + 1;
+                        levels.set(pos, temp);
+                        viewHolder.upgradeButton.setText("Level " + temp);
 
-                        preferencesEditor.putInt("level", level + 1);
-                        preferencesEditor.commit();
-
-                    } else {
-                        viewHolder.upgradeButton.setEnabled(false);
                     }
 
+                    String json = gson.toJson(upgrades);
+                    preferencesEditor.putString("Rod", json);
+                    json = gson.toJson(levels);
+                    preferencesEditor.putString("UpgradeLevels", json);
+                    preferencesEditor.apply();
                 }
             });
+
             notifyDataSetChanged();
             getContext();
             Fragment f = new RodUpgrades();
@@ -241,6 +251,7 @@ public class RodUpgrades extends ListFragment {
             // Return the completed view to render on screen
             return convertView;
         }
+
 
         private class ViewHolder {
             TextView upgradeName;

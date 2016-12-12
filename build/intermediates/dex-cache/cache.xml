@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-24.2.1_f3812520e740a2c3deae9bcada2414cd9fa0b96e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-24.2.1_0283fe6bd27eb6da077f73735c8191753e97362b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="5091a9c1f73f01f4b732d3131e8489a874393eac">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_53e10a40755cf5bda8809b2633b4e605deba4318/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-24.2.1_47ed9758b55118565638cb5149805b53318e287b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/design/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-24.2.1_963c3131b731ecf919eedc7db445b8c640df2084/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="591c6d2745ffa196393555db6af7e21f9ce8b821">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_3cd632414935ee2609f586937d5ec03d37da378c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-24.2.1_5a0a1a7f2e385136be7feea0f1b70bb86ff541d0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-24.2.1_26ecf93de7def7008853fa43e2bc9dc4c0a20b6e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_f559ae323973cafb10331653d43327486a53b5d3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-24.2.1_b948dc69bfc504409015b37b57e9163950e89411/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_648a2d01aff5296dff298725ee2cbf27180d356f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.jakewharton/butterknife/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="a07818a1ecabdb149998823429cce555af4b9cba">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.jakewharton-butterknife-8.4.0_983191cd14650886cdf7e22b0c050fd596669804/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-24.2.1_ecc7264964eaa34ac4a100304ade289e4a5d6cd6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_d98bcd62e2d35d37cd32b0ed4c90fb9253b3ea29/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_a385b7121bb8aca7f79c34ea0d913a0fe007229d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/.local/Android-SDK/extras/android/m2repository/com/android/support/support-annotations/24.2.1/support-annotations-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-24.2.1_0e0522a491e5640f7961a56d307714b3659ebdc2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-24.2.1_c1bf96b5090df9546b7635ef17e71fe527ac4297/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_06b2912f16ebe3310f1500358fc0d8af00161cd6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-24.2.1_7ebcc5c11dcd87b1f43321f4bdd608b16c7f1479/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-24.2.1_b1385dc5e7d79b0d77c914e702bb31b107b07d53/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jakefallin/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.4.0/ea392375cf9ff59234a82e7928a204215ccc98cd/butterknife-annotations-8.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="ea392375cf9ff59234a82e7928a204215ccc98cd">
+        <dex dex="/home/jakefallin/ASProjects/FishingIdle/app/build/intermediates/transforms/dex/debug/folders/1000/10/butterknife-annotations-8.4.0_75f8c7ea6b87b4153d0bbbb5fe1b195e86e1d9cd/classes.dex" />
+    </item>
+
+</items>

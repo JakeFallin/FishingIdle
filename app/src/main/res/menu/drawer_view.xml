@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/fishingDrawer"
+            android:title="Fishing" />
+        <item
+            android:id="@+id/upgradesDrawer"
+            android:title="Upgrades" />
+        <item
+            android:id="@+id/locationsDrawer"
+            android:title="Locations" />
+        <item
+            android:id="@+id/settingDrawer"
+            android:title="Settings" />
+    </group>
+</menu>

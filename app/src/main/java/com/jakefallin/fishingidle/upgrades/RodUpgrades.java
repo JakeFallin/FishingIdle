@@ -1,21 +1,26 @@
 package com.jakefallin.fishingidle.upgrades;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.jakefallin.fishingidle.R;
-import com.jakefallin.fishingidle.adapters.UpgradesAdapter;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -101,21 +106,43 @@ public class RodUpgrades extends ListFragment {
     }
 
 
-    public void populate() {
+    public void populate()
+    {
 
-        //reel
-        reel.add(new Upgrade("Crank", 10.0, Upgrade.Category.reel, false));
-        reel.add(new Upgrade("Pulley", 25.0, Upgrade.Category.reel, false));
-        //line
-        line.add(new Upgrade("Floss", 10.0, Upgrade.Category.line, false));
-        line.add(new Upgrade("String", 25.0, Upgrade.Category.line, false));
-        //shaft
-        shaft.add(new Upgrade("Stick", 10.0, Upgrade.Category.shaft, false));
-        shaft.add(new Upgrade("Basic Rod", 25.0, Upgrade.Category.shaft, false));
+        preferences = getActivity().getSharedPreferences("money", Context.MODE_PRIVATE);
+        preferencesEditor = preferences.edit();
+        Gson gson = new Gson();
 
-        upgrades.add(reel);
-        upgrades.add(line);
-        upgrades.add(shaft);
+        boolean hasRun = preferences.getBoolean("firstTime", false);
+
+
+        if(!hasRun) {
+            //reel
+            reel.add(new Upgrade("Crank", 10.0, Upgrade.Category.reel, false, 0));
+            reel.add(new Upgrade("Pulley", 25.0, Upgrade.Category.reel, false, 0));
+            //line
+            line.add(new Upgrade("Floss", 10.0, Upgrade.Category.line, false, 0));
+            line.add(new Upgrade("String", 25.0, Upgrade.Category.line, false, 0));
+            //shaft
+            shaft.add(new Upgrade("Stick", 10.0, Upgrade.Category.shaft, false, 0));
+            shaft.add(new Upgrade("Basic Rod", 25.0, Upgrade.Category.shaft, false, 0));
+
+            upgrades.add(reel);
+            upgrades.add(line);
+            upgrades.add(shaft);
+
+            String json = gson.toJson(reel);
+            preferencesEditor.putString("Rod", json);
+            preferencesEditor.commit();
+        }
+        else {
+
+            String json = preferences.getString("Rod", "");
+            Type type = new TypeToken<ArrayList<Upgrade>>(){}.getType();
+            reel = gson.fromJson(json, type);
+            upgrades.add(reel);
+
+        }
 
 
     }
@@ -135,4 +162,97 @@ public class RodUpgrades extends ListFragment {
         return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
     }
 
-}
+
+    public class UpgradesAdapter extends ArrayAdapter<Upgrade> {
+
+        SharedPreferences preferences;
+        SharedPreferences.Editor preferencesEditor;
+
+        public UpgradesAdapter(Context context, ArrayList<Upgrade> users) {
+            super(context, 0, users);
+            preferences = context.getSharedPreferences("money", Context.MODE_PRIVATE);
+            preferencesEditor = preferences.edit();
+            preferences = getContext().getSharedPreferences("money", Context.MODE_PRIVATE);
+
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // Get the data item for this position
+            final ViewHolder viewHolder;
+            Upgrade user = getItem(position);
+//        FragmentTransaction transaction = convertView.getFragmentManager().beginTransaction();
+
+
+            // Check if an existing view is being reused, otherwise inflate the view
+            if (convertView == null) {
+                viewHolder = new ViewHolder();
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.upgrade_item, parent, false);
+                viewHolder.upgradeName = (TextView) convertView.findViewById(R.id.tvUpgradeName);
+                viewHolder.upgradeCost = (TextView) convertView.findViewById(R.id.tvUpgradeCost);
+                viewHolder.upgradeButton = (Button) convertView.findViewById(R.id.buttonUpgrade);
+                viewHolder.up = user;
+                int level = user.getLevel();
+                viewHolder.upgradeButton.setText("Level " + level);
+
+
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+                viewHolder.upgradeButton.setEnabled(false);
+                int level = preferences.getInt("level", 0);
+                viewHolder.upgradeButton.setText("Level " + user.getLevel());
+            }
+            viewHolder.upgradeButton.setTag(position);
+            viewHolder.upgradeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    double money = getDouble(preferences, "money", 1.0);
+                    money = Math.round(money * 100.0) / 100.0;
+
+                    if(money >= viewHolder.up.getCost()) {
+                        money -= viewHolder.up.getCost();
+                        putDouble(preferencesEditor, "money", money);
+                        tvMoney.setText("$" + money);
+                        viewHolder.up.setLevel(viewHolder.up.getLevel() + 1);
+                        viewHolder.upgradeButton.setText("Level " + viewHolder.up.incrementLevel());
+                        preferencesEditor.putInt("level", viewHolder.up.getLevel());
+                        preferencesEditor.commit();
+
+                    } else {
+                        viewHolder.upgradeButton.setEnabled(false);
+                    }
+
+                }
+            });
+            notifyDataSetChanged();
+            getContext();
+            Fragment f = new RodUpgrades();
+            viewHolder.upgradeCost.setText("$" + user.getCost());
+            viewHolder.upgradeName.setText(user.getName());
+
+            // Lookup view for data population
+
+            // Populate the data into the template view using the data object
+
+            // Return the completed view to render on screen
+            return convertView;
+        }
+
+        private class ViewHolder {
+            TextView upgradeName;
+            TextView upgradeCost;
+            Button upgradeButton;
+            Upgrade up;
+        }
+
+
+        SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
+            return edit.putLong(key, Double.doubleToRawLongBits(value));
+        }
+
+        double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
+            return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
+        }
+    }
+    }

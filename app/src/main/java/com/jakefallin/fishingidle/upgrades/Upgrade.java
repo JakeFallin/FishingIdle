@@ -9,16 +9,16 @@ public class Upgrade {
     private double cost;
     private String name;
     private boolean purchased;
+    private int level;
     private Category category;
 
-
-    public Upgrade(String name, double cost, Category category, boolean purchased) {
+    public Upgrade(String name, double cost, Category category, boolean purchased, int level) {
 
         this.name = name;
         this.cost = cost;
         this.purchased = purchased;
         this.category = category;
-
+        this.level = level;
 
     }
 
@@ -54,8 +54,24 @@ public class Upgrade {
         this.purchased = purchased;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int incrementLevel() {
+
+        return this.level = getLevel() + 1;
+
+    }
+
     public enum Category {
         reel, line, shaft;
     }
+
+
 
 }

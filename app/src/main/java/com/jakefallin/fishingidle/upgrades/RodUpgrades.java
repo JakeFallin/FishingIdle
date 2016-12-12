@@ -114,7 +114,8 @@ public class RodUpgrades extends ListFragment {
         Gson gson = new Gson();
 
         boolean hasRun = preferences.getBoolean("firstTime", false);
-
+        preferencesEditor.putInt("level", 1);
+        preferencesEditor.commit();
 
         if(!hasRun) {
             //reel
@@ -133,6 +134,7 @@ public class RodUpgrades extends ListFragment {
 
             String json = gson.toJson(reel);
             preferencesEditor.putString("Rod", json);
+            preferencesEditor.putInt("level", 0);
             preferencesEditor.commit();
         }
         else {
@@ -172,7 +174,6 @@ public class RodUpgrades extends ListFragment {
             super(context, 0, users);
             preferences = context.getSharedPreferences("money", Context.MODE_PRIVATE);
             preferencesEditor = preferences.edit();
-            preferences = getContext().getSharedPreferences("money", Context.MODE_PRIVATE);
 
         }
 
@@ -192,7 +193,8 @@ public class RodUpgrades extends ListFragment {
                 viewHolder.upgradeCost = (TextView) convertView.findViewById(R.id.tvUpgradeCost);
                 viewHolder.upgradeButton = (Button) convertView.findViewById(R.id.buttonUpgrade);
                 viewHolder.up = user;
-                int level = user.getLevel();
+                int level = preferences.getInt("level", 0);
+                Log.e("TTT", "LEVEL " + level);
                 viewHolder.upgradeButton.setText("Level " + level);
 
 
@@ -214,9 +216,10 @@ public class RodUpgrades extends ListFragment {
                         money -= viewHolder.up.getCost();
                         putDouble(preferencesEditor, "money", money);
                         tvMoney.setText("$" + money);
-                        viewHolder.up.setLevel(viewHolder.up.getLevel() + 1);
-                        viewHolder.upgradeButton.setText("Level " + viewHolder.up.incrementLevel());
-                        preferencesEditor.putInt("level", viewHolder.up.getLevel());
+                        int level = preferences.getInt("level", 0);
+                        viewHolder.upgradeButton.setText("Level " + level);
+
+                        preferencesEditor.putInt("level", level + 1);
                         preferencesEditor.commit();
 
                     } else {

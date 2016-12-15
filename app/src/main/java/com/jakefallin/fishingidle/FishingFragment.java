@@ -127,7 +127,7 @@ public class FishingFragment extends Fragment {
 
         for(int i = 0; i < 100; i++)
         {
-            double d = new Fish().getValue();
+            double d = new Fish(tinyDB).getValue();
             val += d;
 
             if(d > highest)

@@ -1,5 +1,8 @@
 package com.jakefallin.fishingidle;
 
+import com.jakefallin.fishingidle.upgrades.Upgrade;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -17,14 +20,17 @@ public class Fish {
     private String[] types = {"Carp", "Catfish", "Bass", "Perch", "Salmon", "Trout"};
     private String[] rarities = {"Abundant", "Common", "Uncommon", "Rare", "Exotic", "Fable", "Myth"};
     private String[] sizes = {"Mini", "Small", "Average", "Large", "Giant"};
+    ArrayList<Upgrade> upgrades;
 
 
-    public Fish() {
+    public Fish(TinyDB tinyDB) {
 
         Random r = new Random();
+        upgrades = tinyDB.getListObject("Rod", Upgrade.class);
         rarity = generateRarity(r.nextInt(1000));
         size = generateSize(r.nextInt(1000));
         sizeVal = generateSizeModifier(size);
+        sizeVal = upGradeModifiers(sizeVal);
         rarityVal = generateRarityModifier(rarity);
         double initialVal = ((double) r.nextInt(201-100)+100) / 100.0;
         value = initialVal * sizeVal * rarityVal;
@@ -104,6 +110,20 @@ public class Fish {
                 return 25;
         }
         return 1;
+    }
+
+    public double upGradeModifiers(double sizeVal) {
+
+        double temp = 0;
+
+        for(int i = 0; i < upgrades.size(); i++) {
+
+            int level = upgrades.get(i).getLevel();
+            temp += (double) level * 1.05;
+
+        }
+
+        return sizeVal + temp;
     }
 
 

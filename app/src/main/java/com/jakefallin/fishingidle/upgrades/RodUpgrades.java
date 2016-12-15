@@ -181,15 +181,9 @@ public class RodUpgrades extends ListFragment {
 
             notifyDataSetChanged();
             getContext();
-            Fragment f = new RodUpgrades();
             viewHolder.upgradeCost.setText("$" + user.getCost());
             viewHolder.upgradeName.setText(user.getName());
 
-            // Lookup view for data population
-
-            // Populate the data into the template view using the data object
-
-            // Return the completed view to render on screen
             return convertView;
         }
 
@@ -200,15 +194,5 @@ public class RodUpgrades extends ListFragment {
             Button upgradeButton;
             Upgrade up;
         }
-
-
-        SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
-            return edit.putLong(key, Double.doubleToRawLongBits(value));
-        }
-
-        double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
-            return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
-        }
-
     }
-    }
+}

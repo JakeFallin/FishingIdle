@@ -1,5 +1,7 @@
 package com.jakefallin.fishingidle;
 
+import android.util.Log;
+
 import com.jakefallin.fishingidle.upgrades.Upgrade;
 
 import java.util.ArrayList;
@@ -30,7 +32,9 @@ public class Fish {
         rarity = generateRarity(r.nextInt(1000));
         size = generateSize(r.nextInt(1000));
         sizeVal = generateSizeModifier(size);
-        sizeVal = upGradeModifiers(sizeVal);
+        Log.e("SIZE B4", "" + sizeVal);
+        sizeVal = upgradeModifiers(sizeVal);
+        Log.e("SIZE AFTER", "" + sizeVal);
         rarityVal = generateRarityModifier(rarity);
         double initialVal = ((double) r.nextInt(201-100)+100) / 100.0;
         value = initialVal * sizeVal * rarityVal;
@@ -112,18 +116,17 @@ public class Fish {
         return 1;
     }
 
-    public double upGradeModifiers(double sizeVal) {
+    public double upgradeModifiers(double sizeVal) {
 
         double temp = 0;
 
         for(int i = 0; i < upgrades.size(); i++) {
 
             int level = upgrades.get(i).getLevel();
-            temp += (double) level * 1.05;
+            temp += (double) level * 1.01;
 
         }
-
-        return sizeVal + temp;
+        return sizeVal + (temp / 100);
     }
 
 
@@ -152,7 +155,8 @@ public class Fish {
     }
 
     public double getValue() {
-        return value;
+
+        return Math.round(value * 100.0) / 100.0;
     }
 
     public void setValue(double value) {

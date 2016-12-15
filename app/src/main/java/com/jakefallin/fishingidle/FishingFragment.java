@@ -7,9 +7,11 @@ import android.icu.text.NumberFormat;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,6 +19,9 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jakefallin.fishingidle.upgrades.Upgrade;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ListHolder;
+import com.orhanobut.dialogplus.OnItemClickListener;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -31,17 +36,20 @@ import butterknife.ButterKnife;
 
 public class FishingFragment extends Fragment {
 
-    @BindView(R.id.button) Button btnStartProgress;
+    @BindView(R.id.button)
+    Button btnStartProgress;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     @BindView(R.id.textView)
     TextView textView;
-    @BindView(R.id.tvMoney) TextView tvMoney;
+    @BindView(R.id.tvMoney)
+    TextView tvMoney;
     private int progressBarStatus = 0;
     private Handler progressBarHandler = new Handler();
     double money;
     BigDecimal cash;
     TinyDB tinyDB;
+    ArrayList<Fish> fishing;
 
 
     public static FishingFragment newInstance() {
@@ -59,6 +67,7 @@ public class FishingFragment extends Fragment {
         tinyDB = new TinyDB(getContext());
         money = tinyDB.getDouble("money", 0.0);
         tvMoney.setText("$" + money);
+        fishing = new ArrayList<>();
 
         return view;
 
@@ -71,6 +80,17 @@ public class FishingFragment extends Fragment {
 
         progressBar.setProgress(0);
         addListenerOnButton();
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(fishing.size() > 0) {
+
+                    openFishingResults();
+
+
+                }
+            }
+        });
     }
 
     public void addListenerOnButton() {
@@ -102,13 +122,18 @@ public class FishingFragment extends Fragment {
                                         public void run() {
                                             progressBar.setProgress(progressBarStatus);
                                             textView.setText("Fishing...");
+                                            btnStartProgress.setEnabled(false);
+                                            btnStartProgress.setClickable(false);
+
                                             if (progressBarStatus == 1000) {
                                                 fish();
                                                 progressBarStatus = 1001;
                                             }
-                                            if(progressBarStatus == 1001) {
+                                            if (progressBarStatus == 1001) {
                                                 textView.setText("Done Fishing");
                                                 progressBar.setProgress(0);
+                                                btnStartProgress.setEnabled(true);
+                                                btnStartProgress.setClickable(true);
                                             }
                                         }
                                     });
@@ -122,25 +147,16 @@ public class FishingFragment extends Fragment {
 
     public void fish() {
 
-        double val = 0;
-        double highest = 0;
+        double d = 0.0;
+        fishing = new ArrayList<>();
 
-        for(int i = 0; i < 100; i++)
-        {
-            double d = new Fish(tinyDB).getValue();
-            val += d;
-
-            if(d > highest)
-            {
-                highest = d;
-            }
-
+        for(int i = 0; i < 10; i++) {
+            Fish f = new Fish(tinyDB);
+            fishing.add(f);
+            d += f.getValue();
         }
 
-        System.out.println("Highest" + highest);
-        System.out.println("Average" + val / 100.0);
-
-        money += val;
+        money += d;
         money = Math.round(money * 100.0) / 100.0;
 
         tvMoney.setText("$" + money);
@@ -148,15 +164,75 @@ public class FishingFragment extends Fragment {
         tinyDB = new TinyDB(getContext());
         tinyDB.putDouble("money", money);
 
+
+    }
+
+    public void openFishingResults() {
+
+        DialogAdapter adapter = new DialogAdapter(getContext(), fishing);
+
+        DialogPlus dialog = DialogPlus.newDialog(getContext())
+                .setAdapter(adapter)
+                .setContentHolder(new ListHolder())
+                .setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                    }
+                })
+                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                .create();
+        dialog.show();
+
+
     }
 
     SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
         return edit.putLong(key, Double.doubleToRawLongBits(value));
     }
+
     double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
         return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
     }
 
 
+    public class DialogAdapter extends ArrayAdapter<Fish> {
+
+        public DialogAdapter(Context context, ArrayList<Fish> fish) {
+            super(context, 0, fish);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            ViewHolder viewHolder;
+            Fish fish = getItem(position);
+            if(convertView == null) {
+                viewHolder = new ViewHolder();
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.fish_item, parent, false);
+                viewHolder.species = (TextView) convertView.findViewById(R.id.dialogSpecies);
+                viewHolder.size = (TextView) convertView.findViewById(R.id.dialogSize);
+                viewHolder.rarity = (TextView) convertView.findViewById(R.id.dialogRarity);
+                viewHolder.value = (TextView) convertView.findViewById(R.id.dialogValue);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+
+            viewHolder.species.setText(fish.getSpecies());
+            viewHolder.size.setText(fish.getSize());
+            viewHolder.rarity.setText(fish.getRarity());
+            viewHolder.value.setText("$" + fish.getValue());
+            return convertView;
+
+        }
+
+        private class ViewHolder {
+            TextView species;
+            TextView size;
+            TextView rarity;
+            TextView value;
+        }
+
+    }
 
 }

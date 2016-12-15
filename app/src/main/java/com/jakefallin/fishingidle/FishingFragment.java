@@ -14,6 +14,12 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.jakefallin.fishingidle.upgrades.Upgrade;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -35,8 +41,7 @@ public class FishingFragment extends Fragment {
     private Handler progressBarHandler = new Handler();
     double money;
     BigDecimal cash;
-    SharedPreferences preferences;
-    SharedPreferences.Editor preferencesEditor;
+    TinyDB tinyDB;
 
 
     public static FishingFragment newInstance() {
@@ -51,8 +56,8 @@ public class FishingFragment extends Fragment {
         // Defines the xml file for the fragment
         View view = inflater.inflate(R.layout.fishing_fragment, parent, false);
         ButterKnife.bind(this, view);
-        preferences = this.getActivity().getSharedPreferences("money", Context.MODE_PRIVATE);
-        money = getDouble(preferences, "money", 1.0);
+        tinyDB = new TinyDB(getContext());
+        money = tinyDB.getDouble("money", 0.0);
         tvMoney.setText("$" + money);
 
         return view;
@@ -140,10 +145,8 @@ public class FishingFragment extends Fragment {
 
         tvMoney.setText("$" + money);
 
-        preferencesEditor = preferences.edit();
-        putDouble(preferencesEditor, "money", money);
-        preferencesEditor.commit();
-
+        tinyDB = new TinyDB(getContext());
+        tinyDB.putDouble("money", money);
 
     }
 
@@ -153,5 +156,7 @@ public class FishingFragment extends Fragment {
     double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
         return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
     }
+
+
 
 }

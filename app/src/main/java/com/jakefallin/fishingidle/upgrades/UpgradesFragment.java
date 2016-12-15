@@ -59,7 +59,7 @@ public class UpgradesFragment extends Fragment {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new RodUpgrades(), "Rod");
         adapter.addFragment(new OneFragment(), "Boat");
         adapter.addFragment(new OneFragment(), "Lure");

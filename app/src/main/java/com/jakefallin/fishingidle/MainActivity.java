@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
         setupDrawerContent(navigationView);
-
         dataSetup();
 
 
@@ -152,44 +151,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void dataSetup() {
 
-        SharedPreferences preferences = this.getSharedPreferences("fishing", Context.MODE_PRIVATE);
-        SharedPreferences.Editor preferencesEditor = preferences.edit();
-        Gson gson = new Gson();
-        boolean hasRun = preferences.getBoolean("firstTime", false);
 
+        TinyDB tinyDB = new TinyDB(this);
+        boolean hasRun = tinyDB.getBoolean("firstTime");
+        ArrayList<Upgrade> reel = new ArrayList<>();
 
         if (!hasRun) {
 
-            double money = 0.00;
-            putDouble(preferencesEditor, "money", money);
+            reel.add(new Upgrade("Crank", 10.0, Upgrade.Category.reel, false, 0));
+            reel.add(new Upgrade("Pulley", 25.0, Upgrade.Category.reel, false, 0));
+            int level = 0;
+            tinyDB.putListObject("Rod", reel);
+            tinyDB.putInt("Level", level);
+            tinyDB.putBoolean("firstTime", true);
 
-            ArrayList<Upgrade> rodUpgrades = new ArrayList<>();
-
-            //reel
-            rodUpgrades.add(new Upgrade("Reel", 10.0, Upgrade.Category.reel, false, 0));
-            rodUpgrades.add(new Upgrade("Line", 10.0, Upgrade.Category.reel, false, 0));
-            rodUpgrades.add(new Upgrade("Shaft", 10.0, Upgrade.Category.line, false, 0));
-
-            ArrayList<Integer> rodUpgradeLevels = new ArrayList<>();
-
-            rodUpgradeLevels.add(0);
-            rodUpgradeLevels.add(0);
-            rodUpgradeLevels.add(0);
-
-            String json = gson.toJson(rodUpgrades);
-            preferencesEditor.putString("Rod", json);
-            json = gson.toJson(rodUpgradeLevels);
-            preferencesEditor.putString("UpgradeLevels", json);
-            preferencesEditor.apply();
         }
     }
-
-    SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
-        return edit.putLong(key, Double.doubleToRawLongBits(value));
-    }
-
-    double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
-        return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
-    }
-
 }

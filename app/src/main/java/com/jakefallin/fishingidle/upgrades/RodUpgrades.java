@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jakefallin.fishingidle.R;
+import com.jakefallin.fishingidle.TinyDB;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -65,9 +66,11 @@ public class RodUpgrades extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
+        TinyDB tinyDB = new TinyDB(getContext());
 
         getData();
-
+        line = new ArrayList<>();
+        reel = tinyDB.getListObject("Rod", Upgrade.class);
     }
 
 
@@ -80,15 +83,14 @@ public class RodUpgrades extends ListFragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.upgrade_item_fragment, container, false);
         ButterKnife.bind(this, v);
+        TinyDB tinyDB = new TinyDB(getContext());
 
         upgrades = new ArrayList<>();
         reel = new ArrayList<>();
         shaft = new ArrayList<>();
         line = new ArrayList<>();
-        populate();
+        reel = tinyDB.getListObject("Rod", Upgrade.class);
         getData();
-
-
         return v;
     }
 
@@ -105,64 +107,14 @@ public class RodUpgrades extends ListFragment {
         Log.i("FragmentList", "Item clicked: " + id);
     }
 
-
-    public void populate()
-    {
-
-        preferences = getActivity().getSharedPreferences("money", Context.MODE_PRIVATE);
-        preferencesEditor = preferences.edit();
-        Gson gson = new Gson();
-
-        boolean hasRun = preferences.getBoolean("firstTime", false);
-        preferencesEditor.putInt("level", 1);
-        preferencesEditor.commit();
-
-        if(!hasRun) {
-            //reel
-            reel.add(new Upgrade("Crank", 10.0, Upgrade.Category.reel, false, 0));
-            reel.add(new Upgrade("Pulley", 25.0, Upgrade.Category.reel, false, 0));
-            //line
-            line.add(new Upgrade("Floss", 10.0, Upgrade.Category.line, false, 0));
-            line.add(new Upgrade("String", 25.0, Upgrade.Category.line, false, 0));
-            //shaft
-            shaft.add(new Upgrade("Stick", 10.0, Upgrade.Category.shaft, false, 0));
-            shaft.add(new Upgrade("Basic Rod", 25.0, Upgrade.Category.shaft, false, 0));
-
-            upgrades.add(reel);
-            upgrades.add(line);
-            upgrades.add(shaft);
-
-            String json = gson.toJson(reel);
-            preferencesEditor.putString("Rod", json);
-            preferencesEditor.putInt("level", 0);
-            preferencesEditor.commit();
-        }
-        else {
-
-            String json = preferences.getString("Rod", "");
-            Type type = new TypeToken<ArrayList<Upgrade>>(){}.getType();
-            reel = gson.fromJson(json, type);
-            upgrades.add(reel);
-
-        }
-
-
-    }
-
     public void getData() {
 
-        preferences = this.getActivity().getSharedPreferences("money", Context.MODE_PRIVATE);
-        money = getDouble(preferences, "money", 1.0);
+        TinyDB tinyDB = new TinyDB(getContext());
+        money = tinyDB.getDouble("money", 0.0);
         tvMoney.setText("$" + money);
 
     }
 
-    SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
-        return edit.putLong(key, Double.doubleToRawLongBits(value));
-    }
-    double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
-        return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
-    }
 
 
     public class UpgradesAdapter extends ArrayAdapter<Upgrade> {
@@ -182,28 +134,22 @@ public class RodUpgrades extends ListFragment {
             // Get the data item for this position
             final ViewHolder viewHolder;
             Upgrade user = getItem(position);
-//        FragmentTransaction transaction = convertView.getFragmentManager().beginTransaction();
+            TinyDB tinyDB = new TinyDB(getContext());
+            ArrayList<Upgrade> upgrades = tinyDB.getListObject("Rod", Upgrade.class);
 
-
-            // Check if an existing view is being reused, otherwise inflate the view
-            if (convertView == null) {
+            if(convertView == null) {
                 viewHolder = new ViewHolder();
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.upgrade_item, parent, false);
                 viewHolder.upgradeName = (TextView) convertView.findViewById(R.id.tvUpgradeName);
                 viewHolder.upgradeCost = (TextView) convertView.findViewById(R.id.tvUpgradeCost);
                 viewHolder.upgradeButton = (Button) convertView.findViewById(R.id.buttonUpgrade);
                 viewHolder.up = user;
-                int level = preferences.getInt("level", 0);
-                Log.e("TTT", "LEVEL " + level);
-                viewHolder.upgradeButton.setText("Level " + level);
-
-
+                viewHolder.upgradeButton.setText("Level " + upgrades.get(position).getLevel());
+                viewHolder.upgradeCost.setText("$" + upgrades.get(position).getCost());
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
-                viewHolder.upgradeButton.setEnabled(false);
-                int level = preferences.getInt("level", 0);
-                viewHolder.upgradeButton.setText("Level " + user.getLevel());
             }
+
             viewHolder.upgradeButton.setTag(position);
             viewHolder.upgradeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -212,29 +158,24 @@ public class RodUpgrades extends ListFragment {
                     int pos = (Integer) view.getTag();
                     SharedPreferences preferences = getContext().getSharedPreferences("fishing", Context.MODE_PRIVATE);
                     Gson gson = new Gson();
-                    double money = getDouble(preferences, "money", 0.00);
-                    Type upgradesT = new TypeToken<ArrayList<Upgrade>>(){}.getType();
-                    Type levelsT = new TypeToken<ArrayList<Upgrade>>(){}.getType();
 
-                    ArrayList<Upgrade> upgrades = gson.fromJson("Rod", upgradesT);
-                    ArrayList<Integer> levels = gson.fromJson("UpgradeLevels", levelsT);
+                    TinyDB tinyDB = new TinyDB(getContext());
+                    ArrayList<Upgrade> upgrades = tinyDB.getListObject("Rod", Upgrade.class);
+                    int level = tinyDB.getInt("Level");
+                    double money = tinyDB.getDouble("money", 1.0);
 
                     if(money >= upgrades.get(pos).getCost()) {
                         money -= upgrades.get(pos).getCost();
                         money = Math.round(money * 100.0) / 100.0;
-                        putDouble(preferencesEditor, "money", money);
                         tvMoney.setText("$ " + money);
-                        int temp = levels.get(pos) + 1;
-                        levels.set(pos, temp);
-                        viewHolder.upgradeButton.setText("Level " + temp);
+                        upgrades.get(pos).incrementLevel();
+                        viewHolder.upgradeButton.setText("Level " + upgrades.get(pos).getLevel());
+                        viewHolder.upgradeCost.setText("$" + upgrades.get(pos).getCost());
+                        tinyDB.putInt("Level", level);
+                        tinyDB.putListObject("Rod", upgrades);
+                        tinyDB.putDouble("money", money);
 
                     }
-
-                    String json = gson.toJson(upgrades);
-                    preferencesEditor.putString("Rod", json);
-                    json = gson.toJson(levels);
-                    preferencesEditor.putString("UpgradeLevels", json);
-                    preferencesEditor.apply();
                 }
             });
 
@@ -268,5 +209,6 @@ public class RodUpgrades extends ListFragment {
         double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
             return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
         }
+
     }
     }

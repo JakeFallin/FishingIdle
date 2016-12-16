@@ -1,8 +1,8 @@
 package com.jakefallin.fishingidle.upgrades;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,17 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.jakefallin.fishingidle.R;
 import com.jakefallin.fishingidle.TinyDB;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -30,16 +22,12 @@ import butterknife.ButterKnife;
  * Created by JakeFallin on 12/9/2016.
  */
 
-
 public class RodUpgrades extends ListFragment {
     int mNum;
 
-    ArrayList<Upgrade> shaft;
     ArrayList<Upgrade> reel;
     ArrayList<Upgrade> line;
     ArrayList<ArrayList<Upgrade>> upgrades;
-    SharedPreferences preferences;
-    SharedPreferences.Editor preferencesEditor;
     @BindView(R.id.tvRodMoney) TextView tvMoney;
     double money;
 
@@ -87,8 +75,7 @@ public class RodUpgrades extends ListFragment {
 
         upgrades = new ArrayList<>();
         reel = new ArrayList<>();
-        shaft = new ArrayList<>();
-        line = new ArrayList<>();
+
         reel = tinyDB.getListObject("Rod", Upgrade.class);
         getData();
         return v;
@@ -100,6 +87,7 @@ public class RodUpgrades extends ListFragment {
 
         UpgradesAdapter upgradesAdapter = new UpgradesAdapter(getActivity(), reel);
         setListAdapter(upgradesAdapter);
+
     }
 
     @Override
@@ -112,10 +100,7 @@ public class RodUpgrades extends ListFragment {
         TinyDB tinyDB = new TinyDB(getContext());
         money = tinyDB.getDouble("money", 0.0);
         tvMoney.setText("$" + money);
-
     }
-
-
 
     public class UpgradesAdapter extends ArrayAdapter<Upgrade> {
 
@@ -156,9 +141,6 @@ public class RodUpgrades extends ListFragment {
                 public void onClick(View view) {
 
                     int pos = (Integer) view.getTag();
-                    SharedPreferences preferences = getContext().getSharedPreferences("fishing", Context.MODE_PRIVATE);
-                    Gson gson = new Gson();
-
                     TinyDB tinyDB = new TinyDB(getContext());
                     ArrayList<Upgrade> upgrades = tinyDB.getListObject("Rod", Upgrade.class);
                     int level = tinyDB.getInt("Level");

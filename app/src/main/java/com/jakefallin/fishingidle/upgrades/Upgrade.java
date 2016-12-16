@@ -73,7 +73,7 @@ public class Upgrade {
     }
 
     public enum Category {
-        reel, line, shaft;
+        reel, line, shaft, grip;
     }
 
 

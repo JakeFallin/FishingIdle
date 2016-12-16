@@ -1,13 +1,12 @@
-package com.jakefallin.fishingidle;
+package com.jakefallin.fishingidle.Fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.icu.math.BigDecimal;
-import android.icu.text.NumberFormat;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +15,14 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.jakefallin.fishingidle.upgrades.Upgrade;
+import com.jakefallin.fishingidle.Fish;
+import com.jakefallin.fishingidle.R;
+import com.jakefallin.fishingidle.TinyDB;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ListHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -96,7 +93,7 @@ public class FishingFragment extends Fragment {
     public void addListenerOnButton() {
 
         btnStartProgress.setOnClickListener(
-                new View.OnClickListener() {
+                new View.OnClickListener()  {
 
                     @Override
                     public void onClick(View v) {
@@ -174,6 +171,8 @@ public class FishingFragment extends Fragment {
         DialogPlus dialog = DialogPlus.newDialog(getContext())
                 .setAdapter(adapter)
                 .setContentHolder(new ListHolder())
+                .setGravity(Gravity.CENTER)
+                .setCancelable(true)
                 .setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(DialogPlus dialog, Object item, View view, int position) {

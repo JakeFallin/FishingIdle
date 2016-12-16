@@ -1,7 +1,5 @@
 package com.jakefallin.fishingidle;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -15,12 +13,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.jakefallin.fishingidle.Fragment.FishingFragment;
+import com.jakefallin.fishingidle.Fragment.LocationsFragment;
+import com.jakefallin.fishingidle.Fragment.SettingsFragment;
+import com.jakefallin.fishingidle.Fragment.WorkersFragment;
 import com.jakefallin.fishingidle.upgrades.Upgrade;
-import com.jakefallin.fishingidle.upgrades.UpgradesFragment;
+import com.jakefallin.fishingidle.Fragment.UpgradesFragment;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -123,6 +122,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.locationsDrawer:
                 fragmentClass = LocationsFragment.class;
                 break;
+            case R.id.workersDrawer:
+                fragmentClass = WorkersFragment.class;
+                break;
             case R.id.settingDrawer:
                 fragmentClass = SettingsFragment.class;
                 break;
@@ -154,14 +156,34 @@ public class MainActivity extends AppCompatActivity {
 
         TinyDB tinyDB = new TinyDB(this);
         boolean hasRun = tinyDB.getBoolean("firstTime");
-        ArrayList<Upgrade> reel = new ArrayList<>();
+        ArrayList<Upgrade> rod = new ArrayList<>();
+        ArrayList<Upgrade> boat = new ArrayList<>();
+        ArrayList<Lure> lure = new ArrayList<>();
+
+
 
         if (!hasRun) {
 
-            reel.add(new Upgrade("Crank", 10.0, Upgrade.Category.reel, false, 0));
-            reel.add(new Upgrade("Pulley", 25.0, Upgrade.Category.reel, false, 0));
+            rod.add(new Upgrade("Shaft", 10.0, Upgrade.Category.shaft, false, 0));
+            rod.add(new Upgrade("Line", 10.0, Upgrade.Category.line, false, 0));
+            rod.add(new Upgrade("Reel", 10.0, Upgrade.Category.reel, false, 0));
+
+            boat.add(new Upgrade("Hull", 1000.0, Upgrade.Category.grip, false, 0));
+            boat.add(new Upgrade("Storage", 1000.0, Upgrade.Category.grip, false, 0));
+            boat.add(new Upgrade("Fuel", 1000.0, Upgrade.Category.grip, false, 0));
+
+            lure.add(new Lure("Hook", 10.0, 1.0));
+            lure.add(new Lure("Double Hook", 25.0, 1.0));
+            lure.add(new Lure("Triple Hook", 100.0, 1.0));
+            lure.add(new Lure("Shiny Hook", 250.0, 1.0));
+            lure.add(new Lure("Worm", 1000.0, 1.0));
+            lure.add(new Lure("Hook", 10.0, 1.0));
+            lure.add(new Lure("Hook", 10.0, 1.0));
+
             int level = 0;
-            tinyDB.putListObject("Rod", reel);
+            tinyDB.putListObject("Rod", rod);
+            tinyDB.putListObject("Boat", boat);
+
             tinyDB.putInt("Level", level);
             tinyDB.putBoolean("firstTime", true);
 

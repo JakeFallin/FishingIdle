@@ -1,4 +1,4 @@
-package com.jakefallin.fishingidle;
+package com.jakefallin.fishingidle.Fragment;
 
 /**
  * Created by JakeFallin on 12/8/2016.
@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.jakefallin.fishingidle.R;
+import com.jakefallin.fishingidle.TinyDB;
 import com.jakefallin.fishingidle.upgrades.Upgrade;
 
 import java.util.ArrayList;

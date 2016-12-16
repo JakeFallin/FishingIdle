@@ -1,4 +1,4 @@
-package com.jakefallin.fishingidle;
+package com.jakefallin.fishingidle.Fragment;
 
 /**
  * Created by JakeFallin on 12/8/2016.

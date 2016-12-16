@@ -1,4 +1,4 @@
-package com.jakefallin.fishingidle.upgrades;
+package com.jakefallin.fishingidle.Fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -16,8 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.jakefallin.fishingidle.OneFragment;
 import com.jakefallin.fishingidle.R;
+import com.jakefallin.fishingidle.upgrades.BoatUpgrades;
+import com.jakefallin.fishingidle.upgrades.RodUpgrades;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,8 +62,8 @@ public class UpgradesFragment extends Fragment {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new RodUpgrades(), "Rod");
-        adapter.addFragment(new OneFragment(), "Boat");
-        adapter.addFragment(new OneFragment(), "Lure");
+        adapter.addFragment(new BoatUpgrades(), "Boat");
+        adapter.addFragment(new RodUpgrades(), "Lure");
         viewPager.setAdapter(adapter);
     }
 

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.jakefallin.fishingidle.Lure;
 import com.jakefallin.fishingidle.R;
 import com.jakefallin.fishingidle.TinyDB;
 import com.jakefallin.fishingidle.upgrades.Upgrade;
@@ -62,14 +63,34 @@ public class SettingsFragment extends Fragment {
     public void reset() {
 
         TinyDB tinyDB = new TinyDB(getContext());
-        ArrayList<Upgrade> reel = new ArrayList<>();
+        ArrayList<Upgrade> rod = new ArrayList<>();
+        ArrayList<Upgrade> boat = new ArrayList<>();
+        ArrayList<Lure> lure = new ArrayList<>();
 
-        reel.add(new Upgrade("Crank", 10.0, Upgrade.Category.reel, false, 0));
-        reel.add(new Upgrade("Pulley", 25.0, Upgrade.Category.reel, false, 0));
+        rod.add(new Upgrade("Shaft", 10.0, Upgrade.Category.shaft, false, 0));
+        rod.add(new Upgrade("Line", 10.0, Upgrade.Category.line, false, 0));
+        rod.add(new Upgrade("Reel", 10.0, Upgrade.Category.reel, false, 0));
+
+        boat.add(new Upgrade("Hull", 1000.0, Upgrade.Category.grip, false, 0));
+        boat.add(new Upgrade("Storage", 1000.0, Upgrade.Category.grip, false, 0));
+        boat.add(new Upgrade("Fuel", 1000.0, Upgrade.Category.grip, false, 0));
+
+        lure.add(new Lure("Hook", 10.0, 1.0));
+        lure.add(new Lure("Double Hook", 25.0, 1.0));
+        lure.add(new Lure("Triple Hook", 100.0, 1.0));
+        lure.add(new Lure("Shiny Hook", 250.0, 1.0));
+        lure.add(new Lure("Worm", 1000.0, 1.0));
+        lure.add(new Lure("Nightcrawler", 2500.0, 1.0));
+        lure.add(new Lure("Lure", 10000.0, 1.0));
+
         double money = 0.00;
+        int level = 0;
+        tinyDB.putListObject("Rod", rod);
+        tinyDB.putListObject("Boat", boat);
         tinyDB.putDouble("money", money);
-        tinyDB.putListObject("Rod", reel);
+        tinyDB.putInt("Level", level);
 
      }
 }
+
 

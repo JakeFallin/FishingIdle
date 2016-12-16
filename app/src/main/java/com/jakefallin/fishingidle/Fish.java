@@ -127,7 +127,7 @@ public class Fish {
 
         }
 
-        if(((rarity.equals("Exotic")) || (rarity.equals("Fable")) || (rarity.equals("Myth"))) && (size.equals("Giant")))
+        if(((rarity.equals("Fable")) || (rarity.equals("Myth"))) && (size.equals("Giant")))
             return sizeVal + (temp / 100) + 10000;
 
         return sizeVal + (temp / 100);

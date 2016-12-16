@@ -64,9 +64,14 @@ public class Upgrade {
 
     public int incrementLevel() {
 
-        double cost = getCost() * 1.15;
-        cost = Math.round(cost * 100.0) / 100.0;
-        setCost(cost);
+        double t = 1.0;
+
+        if(level > 2) {
+            t = Math.pow(1.10, level);
+        }
+        t = t * 10.0;
+        t = Math.round(t * 100.0) / 100.0;
+        setCost(t);
 
         return this.level = getLevel() + 1;
 

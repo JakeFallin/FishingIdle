@@ -3,7 +3,6 @@ package com.jakefallin.fishingidle.adapters;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.jakefallin.fishingidle.R;
-import com.jakefallin.fishingidle.ui.UpgradeItem;
 import com.jakefallin.fishingidle.upgrades.RodUpgrades;
 import com.jakefallin.fishingidle.upgrades.Upgrade;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-
-import butterknife.BindView;
 
 /**
  * Created by jakefallin on 12/9/16.

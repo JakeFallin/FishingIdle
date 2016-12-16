@@ -1,6 +1,7 @@
 package com.jakefallin.fishingidle;
 
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -9,16 +10,15 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.jakefallin.fishingidle.Fragment.FishingFragment;
 import com.jakefallin.fishingidle.Fragment.LocationsFragment;
 import com.jakefallin.fishingidle.Fragment.SettingsFragment;
+import com.jakefallin.fishingidle.Fragment.UpgradesFragment;
 import com.jakefallin.fishingidle.Fragment.WorkersFragment;
 import com.jakefallin.fishingidle.upgrades.Upgrade;
-import com.jakefallin.fishingidle.Fragment.UpgradesFragment;
 
 import java.util.ArrayList;
 
@@ -33,12 +33,8 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     @BindView(R.id.nvView)
     NavigationView navigationView;
-
     ActionBarDrawerToggle actionBarDrawerToggle;
 
-    private int progressBarStatus = 0;
-    private Handler progressBarHandler = new Handler();
-    double money = 0.0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -138,15 +134,10 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
-        // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
-        // Set action bar title
         setTitle(menuItem.getTitle());
-        // Close the navigation drawer
         drawerLayout.closeDrawers();
     }
 
@@ -159,8 +150,6 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Upgrade> rod = new ArrayList<>();
         ArrayList<Upgrade> boat = new ArrayList<>();
         ArrayList<Lure> lure = new ArrayList<>();
-
-
 
         if (!hasRun) {
 
@@ -177,8 +166,8 @@ public class MainActivity extends AppCompatActivity {
             lure.add(new Lure("Triple Hook", 100.0, 1.0));
             lure.add(new Lure("Shiny Hook", 250.0, 1.0));
             lure.add(new Lure("Worm", 1000.0, 1.0));
-            lure.add(new Lure("Hook", 10.0, 1.0));
-            lure.add(new Lure("Hook", 10.0, 1.0));
+            lure.add(new Lure("Nightcrawler", 2500.0, 1.0));
+            lure.add(new Lure("Lure", 10000.0, 1.0));
 
             int level = 0;
             tinyDB.putListObject("Rod", rod);

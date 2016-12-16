@@ -21,17 +21,6 @@ package com.jakefallin.fishingidle;
  *  and unicode 2017 that are used for separating the items in a list.
  */
 
-import android.os.Environment;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-
-//import com.google.gson.Gson;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -44,6 +33,15 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.jakefallin.fishingidle.upgrades.Upgrade;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
+
+//import com.google.gson.Gson;
 
 
 public class TinyDB {

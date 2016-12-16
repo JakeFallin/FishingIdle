@@ -127,7 +127,7 @@ public class FishingFragment extends Fragment {
                                                 progressBarStatus = 1001;
                                             }
                                             if (progressBarStatus == 1001) {
-                                                textView.setText("Done Fishing");
+                                                textView.setText("Click to view Results");
                                                 progressBar.setProgress(0);
                                                 btnStartProgress.setEnabled(true);
                                                 btnStartProgress.setClickable(true);
@@ -147,7 +147,7 @@ public class FishingFragment extends Fragment {
         double d = 0.0;
         fishing = new ArrayList<>();
 
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 20; i++) {
             Fish f = new Fish(tinyDB);
             fishing.add(f);
             d += f.getValue();
@@ -173,26 +173,23 @@ public class FishingFragment extends Fragment {
                 .setContentHolder(new ListHolder())
                 .setGravity(Gravity.CENTER)
                 .setCancelable(true)
+                .setPadding(10, 10, 10, 10)
+                .setContentHeight(1200)  // or any custom width ie: 300
+
+                .setHeader(R.layout.fish_item_header)
                 .setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                        dialog.dismiss();
                     }
                 })
-                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                .setExpanded(false)  // This will enable the expand feature, (similar to android L share dialog)
                 .create();
+
         dialog.show();
 
 
     }
-
-    SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
-        return edit.putLong(key, Double.doubleToRawLongBits(value));
-    }
-
-    double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
-        return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
-    }
-
 
     public class DialogAdapter extends ArrayAdapter<Fish> {
 

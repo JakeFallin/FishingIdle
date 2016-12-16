@@ -15,7 +15,6 @@ public class Lure {
         this.name = name;
         this.value = value;
         this.bonus = bonus;
-
     }
 
     public String getName() {

@@ -150,16 +150,17 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Upgrade> rod = new ArrayList<>();
         ArrayList<Upgrade> boat = new ArrayList<>();
         ArrayList<Lure> lure = new ArrayList<>();
+        ArrayList<double[]> cost = new ArrayList<>();
 
         if (!hasRun) {
 
-            rod.add(new Upgrade("Shaft", 10.0, Upgrade.Category.shaft, false, 0));
-            rod.add(new Upgrade("Line", 10.0, Upgrade.Category.line, false, 0));
-            rod.add(new Upgrade("Reel", 10.0, Upgrade.Category.reel, false, 0));
+            rod.add(new Upgrade("Shaft", 10.00, Upgrade.Category.shaft, false, 0));
+            rod.add(new Upgrade("Line", 10.00, Upgrade.Category.line, false, 0));
+            rod.add(new Upgrade("Reel", 10.00, Upgrade.Category.reel, false, 0));
 
-            boat.add(new Upgrade("Hull", 1000.0, Upgrade.Category.grip, false, 0));
-            boat.add(new Upgrade("Storage", 1000.0, Upgrade.Category.grip, false, 0));
-            boat.add(new Upgrade("Fuel", 1000.0, Upgrade.Category.grip, false, 0));
+            boat.add(new Upgrade("Hull", 100.00, Upgrade.Category.grip, false, 0));
+            boat.add(new Upgrade("Storage", 1000.00, Upgrade.Category.grip, false, 0));
+            boat.add(new Upgrade("Fuel", 100.00, Upgrade.Category.grip, false, 0));
 
             lure.add(new Lure("Hook", 10.0, 1.0));
             lure.add(new Lure("Double Hook", 25.0, 1.0));
@@ -169,10 +170,18 @@ public class MainActivity extends AppCompatActivity {
             lure.add(new Lure("Nightcrawler", 2500.0, 1.0));
             lure.add(new Lure("Lure", 10000.0, 1.0));
 
+            double[] c0 = {10.0, 10.0, 10.0};
+            cost.add(c0);
+            cost.add(c0);
+            cost.add(c0);
+
             int level = 0;
+            int upgradeFactor = 1;
             tinyDB.putListObject("Rod", rod);
             tinyDB.putListObject("Boat", boat);
-
+            tinyDB.putListObjectLure("Lure", lure);
+            tinyDB.putInt("Factor", upgradeFactor);
+            tinyDB.putListObjectDouble("Cost", cost);
             tinyDB.putInt("Level", level);
             tinyDB.putBoolean("firstTime", true);
 

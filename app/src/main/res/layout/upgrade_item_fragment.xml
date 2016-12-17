@@ -33,4 +33,22 @@
 
     </FrameLayout>
 
+    <LinearLayout android:orientation="horizontal"
+        android:gravity="center" android:measureWithLargestChild="true"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_weight="0">
+        <Button android:id="@+id/upgradeX1"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="X1">
+        </Button>
+        <Button android:id="@+id/upgradeX10"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="X10">
+        </Button>
+        <Button android:id="@+id/upgradeX100"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="X100">
+        </Button>
+    </LinearLayout>
+
 </LinearLayout>

@@ -329,6 +329,18 @@ public class TinyDB {
         return newList;
     }
 
+    public ArrayList<double[]> getListObjectDouble(String key, Class<double[]> mClass){
+        Gson gson = new Gson();
+
+        ArrayList<String> objStrings = getListString(key);
+        ArrayList<double[]> objects =  new ArrayList<double[]>();
+
+        for(String jObjString : objStrings){
+            double[] value  = gson.fromJson(jObjString,  mClass);
+            objects.add(value);
+        }
+        return objects;
+    }
 
     public ArrayList<Upgrade> getListObject(String key, Class<Upgrade> mClass){
     	Gson gson = new Gson();
@@ -341,6 +353,19 @@ public class TinyDB {
     		objects.add(value);
     	}
     	return objects;
+    }
+
+    public ArrayList<Lure> getListObjectLure(String key, Class<Lure> mClass){
+        Gson gson = new Gson();
+
+        ArrayList<String> objStrings = getListString(key);
+        ArrayList<Lure> objects =  new ArrayList<Lure>();
+
+        for(String jObjString : objStrings){
+            Lure value  = gson.fromJson(jObjString,  mClass);
+            objects.add(value);
+        }
+        return objects;
     }
 
 
@@ -499,6 +524,26 @@ public class TinyDB {
     		objStrings.add(gson.toJson(obj));
     	}
     	putListString(key, objStrings);
+    }
+
+    public void putListObjectDouble(String key, ArrayList<double[]> objArray){
+        checkForNullKey(key);
+        Gson gson = new Gson();
+        ArrayList<String> objStrings = new ArrayList<String>();
+        for(Object obj : objArray){
+            objStrings.add(gson.toJson(obj));
+        }
+        putListString(key, objStrings);
+    }
+
+    public void putListObjectLure(String key, ArrayList<Lure> objArray){
+        checkForNullKey(key);
+        Gson gson = new Gson();
+        ArrayList<String> objStrings = new ArrayList<String>();
+        for(Object obj : objArray){
+            objStrings.add(gson.toJson(obj));
+        }
+        putListString(key, objStrings);
     }
 
     /**

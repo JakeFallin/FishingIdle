@@ -66,9 +66,8 @@ public class Upgrade {
 
         double t = 1.0;
 
-        if(level > 2) {
-            t = Math.pow(1.10, level);
-        }
+        t = Math.pow(1.10, level + 1);
+
         t = t * 10.0;
         t = Math.round(t * 100.0) / 100.0;
         setCost(t);

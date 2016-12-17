@@ -82,15 +82,15 @@ public class Fish {
 
         switch (size) {
             case("Mini"):
-                return .5;
+                return .66;
             case("Small"):
-                return .67;
+                return .85;
             case("Average"):
-                return 1;
+                return 1.25;
             case("Large"):
-                return 1.5;
+                return 2.5;
             case("Giant"):
-                return 3;
+                return 10;
         }
         return 1;
     }
@@ -127,8 +127,12 @@ public class Fish {
 
         }
 
-        if(((rarity.equals("Fable")) || (rarity.equals("Myth"))) && (size.equals("Giant")))
-            return sizeVal + (temp / 100) + 10000;
+        if(size.equals("Giant"))
+            if(rarity.equals("Fable"))
+                return sizeVal + (temp / 100) + 5000;
+            if(rarity.equals("Myth"))
+                return sizeVal + (temp / 100) + 25000;
+
 
         return sizeVal + (temp / 100);
     }

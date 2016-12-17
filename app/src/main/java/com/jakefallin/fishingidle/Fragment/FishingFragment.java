@@ -147,7 +147,7 @@ public class FishingFragment extends Fragment {
         double d = 0.0;
         fishing = new ArrayList<>();
 
-        for(int i = 0; i < 20; i++) {
+        for(int i = 0; i < 100; i++) {
             Fish f = new Fish(tinyDB);
             fishing.add(f);
             d += f.getValue();

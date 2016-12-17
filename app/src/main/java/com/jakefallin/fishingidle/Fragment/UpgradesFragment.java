@@ -13,12 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jakefallin.fishingidle.R;
+import com.jakefallin.fishingidle.TinyDB;
 import com.jakefallin.fishingidle.upgrades.BoatUpgrades;
 import com.jakefallin.fishingidle.upgrades.RodUpgrades;
+import com.jakefallin.fishingidle.upgrades.Upgrade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,8 @@ public class UpgradesFragment extends Fragment {
     Toolbar toolbar;
     @BindView(R.id.tabsUpgrade)
     TabLayout tabLayout;
+
+    TinyDB tinyDB;
 
     public static UpgradesFragment newInstance() {
          UpgradesFragment upgradesFragment = new UpgradesFragment();
@@ -56,6 +61,7 @@ public class UpgradesFragment extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
 
     }
 

@@ -41,7 +41,6 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
-
         ButterKnife.bind(this, view);
 
         reset.setOnClickListener(
@@ -49,15 +48,11 @@ public class SettingsFragment extends Fragment {
 
                     @Override
                     public void onClick(View v) {
-
                         reset();
                     }
-
                 });
 
         return view;
-
-
     }
 
     public void reset() {

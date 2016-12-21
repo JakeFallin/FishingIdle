@@ -6,6 +6,7 @@ import android.icu.math.BigDecimal;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,10 +85,21 @@ public class FishingFragment extends Fragment {
 
                     openFishingResults();
 
-
                 }
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+
+        progressBar.setProgress(0);
+        Log.e("DEBUG", "OnPause of loginFragment");
+        tinyDB = new TinyDB(getContext());
+        tinyDB.putDouble("money", money);
+
+        super.onPause();
+
     }
 
     public void addListenerOnButton() {
@@ -158,11 +170,13 @@ public class FishingFragment extends Fragment {
 
         tvMoney.setText("$" + money);
 
-        tinyDB = new TinyDB(getContext());
+        tinyDB = new TinyDB(getActivity());
         tinyDB.putDouble("money", money);
 
 
     }
+
+
 
     public void openFishingResults() {
 
@@ -187,7 +201,6 @@ public class FishingFragment extends Fragment {
                 .create();
 
         dialog.show();
-
 
     }
 

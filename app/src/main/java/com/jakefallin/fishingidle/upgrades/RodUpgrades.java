@@ -91,6 +91,7 @@ public class RodUpgrades extends ListFragment {
         getData();
 
         x1.setText("Current");
+
         x1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +101,7 @@ public class RodUpgrades extends ListFragment {
                 x1.setText("Current");
                 x10.setText("X10");
                 x100.setText("X100");
-                tinyDB.putInt("Factor", 0);
+                tinyDB.putInt("Factor", 1);
                 double[] c = cost.get(0);
 
                 for(int i = 0; i < 1; i++) {
@@ -183,11 +184,19 @@ public class RodUpgrades extends ListFragment {
                 Log.e("A", "" + c[0]);
                 Log.e("B", "" + c[1]);
                 Log.e("C", "" + c[2]);
-                upgradesAdapter = new UpgradesAdapter(getActivity(), rod);
-                setListAdapter(upgradesAdapter);
+//                upgradesAdapter = new UpgradesAdapter(getActivity(), rod);
+//                setListAdapter(upgradesAdapter);
+                upgradesAdapter.notifyDataSetChanged();
+
 
             }
         });
+
+        x1.setText("Current");
+        x10.setText("X10");
+        x100.setText("X100");
+        tinyDB.putInt("Factor", 1);
+
 
         return v;
     }
@@ -200,6 +209,8 @@ public class RodUpgrades extends ListFragment {
         setListAdapter(upgradesAdapter);
 
     }
+
+
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
@@ -261,9 +272,11 @@ public class RodUpgrades extends ListFragment {
 
 
 
+
             double temp = c[position];
             temp = Math.round(temp * 100.0) / 100.0;
             viewHolder.upgradeCost.setText("$" + temp);
+            Log.e("DEBUG", ""+temp);
             viewHolder.upgradeButton.setText("Level " + upgrades.get(position).getLevel());
 
 
@@ -295,7 +308,7 @@ public class RodUpgrades extends ListFragment {
                         tvMoney.setText("$ " + money);
                         upgrades.get(pos).setLevel(upgrades.get(pos).getLevel() + factor);
 
-                        viewHolder.upgradeButton.setText("Level " + upgrades.get(pos).getLevel());
+//                        viewHolder.upgradeButton.setText("Level " + upgrades.get(pos).getLevel());
 
                         upgrades.get(pos).incrementLevel();
 
@@ -303,21 +316,33 @@ public class RodUpgrades extends ListFragment {
                         temp = Math.round(temp * 100.0) / 100.0;
                         Log.e("TTT", "" + temp);
 
-                        viewHolder.upgradeCost.setText("$" + x10(pos));
+                        if(factor == 1) {
+                            c[pos] = x1(pos);
+                            cost.set(0, c);
+                        }
+                        else if(factor == 10) {
+                            c[pos] = x10(pos);
+                            cost.set(1, c);
+                        }
+                        else if(factor == 100) {
+                            c[pos] = x100(pos);
+                            cost.set(2, c);
+                        }
 
-//                        if(factor == 1)
-//                            viewHolder.upgradeCost.setText("$" + x1(pos));
-//                        else if(factor == 10)
-//                            viewHolder.upgradeCost.setText("$" + x10(pos));
-//                        else if(factor == 100)
-//                            viewHolder.upgradeCost.setText("$" + x100(pos));
+//                        double t = c[pos];
+//                        t = Math.round(t * 100.0) / 100.0;
+//                        viewHolder.upgradeButton.setText("$COCK");
 
+                        Log.e("DEBUG", "COCK");
+
+                        tinyDB.putListObjectDouble("Cost", cost);
                         tinyDB.putInt("Level", level);
                         tinyDB.putListObject("Rod", upgrades);
                         tinyDB.putDouble("money", money);
 
-                        upgradesAdapter = new UpgradesAdapter(getActivity(), upgrades);
-                        setListAdapter(upgradesAdapter);
+//                        upgradesAdapter = new UpgradesAdapter(getContext(), upgrades);
+//                        setListAdapter(upgradesAdapter);
+                        upgradesAdapter.notifyDataSetChanged();
 
                     }
                 }
@@ -363,11 +388,11 @@ public class RodUpgrades extends ListFragment {
 
         cost.add(0, c);
         tinyDB.putListObjectDouble("Cost", cost);
-        if(pos == 1)
+        if(pos == 0)
             return c[0];
-        if(pos == 2)
+        if(pos == 1)
             return c[1];
-        if(pos == 3)
+        if(pos == 2)
             return c[2];
 
         return 0;
@@ -403,11 +428,11 @@ public class RodUpgrades extends ListFragment {
         upgradesAdapter = new UpgradesAdapter(getActivity(), rod);
         setListAdapter(upgradesAdapter);
 
-        if(pos == 1)
+        if(pos == 0)
             return c[0];
-        if(pos == 2)
+        if(pos == 1)
             return c[1];
-        if(pos == 3)
+        if(pos == 2)
             return c[2];
 
         return 0;
@@ -444,11 +469,11 @@ public class RodUpgrades extends ListFragment {
         upgradesAdapter = new UpgradesAdapter(getActivity(), rod);
         setListAdapter(upgradesAdapter);
 
-        if(pos == 1)
+        if(pos == 0)
             return c[0];
-        if(pos == 2)
+        if(pos == 1)
             return c[1];
-        if(pos == 3)
+        if(pos == 2)
             return c[2];
 
         return 0;

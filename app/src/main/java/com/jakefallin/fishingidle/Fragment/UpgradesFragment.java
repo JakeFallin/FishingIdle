@@ -62,7 +62,6 @@ public class UpgradesFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-
     }
 
     private void setupViewPager(ViewPager viewPager) {

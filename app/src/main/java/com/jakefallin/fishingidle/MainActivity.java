@@ -151,6 +151,12 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Upgrade> boat = new ArrayList<>();
         ArrayList<Lure> lure = new ArrayList<>();
         ArrayList<double[]> cost = new ArrayList<>();
+        double[] c0 = {10.0, 10.0, 10.0};
+        int NUM_FISH = 1;
+        int DELAY_MS = 200;
+        int level = 0;
+        int upgradeFactor = 1;
+
 
         if (!hasRun) {
 
@@ -168,15 +174,20 @@ public class MainActivity extends AppCompatActivity {
             lure.add(new Lure("Shiny Hook", 250.0, 1.0));
             lure.add(new Lure("Worm", 1000.0, 1.0));
             lure.add(new Lure("Nightcrawler", 2500.0, 1.0));
-            lure.add(new Lure("Lure", 10000.0, 1.0));
+            lure.add(new Lure("Basic Lure", 10000.0, 1.0));
+            lure.add(new Lure("Amateur Lure", 25000.0, 1.0));
+            lure.add(new Lure("Double Hooked Lure", 50000.0, 1.0));
+            lure.add(new Lure("Triple Hooked Lure", 100000.0, 1.0));
+            lure.add(new Lure("Silver Lure", 250000.0, 1.0));
+            lure.add(new Lure("Golden Lure", 500000.0, 1.0));
+            lure.add(new Lure("Titanium Lure", 500000.0, 1.0));
 
-            double[] c0 = {10.0, 10.0, 10.0};
             cost.add(c0);
             cost.add(c0);
             cost.add(c0);
 
-            int level = 0;
-            int upgradeFactor = 1;
+            tinyDB.putInt("Fish", NUM_FISH);
+            tinyDB.putInt("Delay", DELAY_MS);
             tinyDB.putListObject("Rod", rod);
             tinyDB.putListObject("Boat", boat);
             tinyDB.putListObjectLure("Lure", lure);

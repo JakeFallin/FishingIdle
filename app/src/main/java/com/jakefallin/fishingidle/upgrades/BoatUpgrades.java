@@ -54,7 +54,6 @@ public class BoatUpgrades extends ListFragment {
         mNum = getArguments() != null ? getArguments().getInt("num") : 1;
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -64,7 +63,6 @@ public class BoatUpgrades extends ListFragment {
         boat = new ArrayList<>();
         boat = tinyDB.getListObject("Boat", Upgrade.class);
     }
-
 
     /**
      * The Fragment's UI is just a simple text view showing its
@@ -104,8 +102,6 @@ public class BoatUpgrades extends ListFragment {
         tvMoney.setText("$" + money);
 
     }
-
-
 
     public class UpgradesAdapter extends ArrayAdapter<Upgrade> {
 
@@ -158,6 +154,8 @@ public class BoatUpgrades extends ListFragment {
                         money -= upgrades.get(pos).getCost();
                         money = Math.round(money * 100.0) / 100.0;
                         tvMoney.setText("$ " + money);
+
+                        upgrades.get(pos).getCost();
                         upgrades.get(pos).incrementLevel();
                         viewHolder.upgradeButton.setText("Level " + upgrades.get(pos).getLevel());
                         viewHolder.upgradeCost.setText("$" + upgrades.get(pos).getCost());
